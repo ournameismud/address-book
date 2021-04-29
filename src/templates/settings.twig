@@ -1,0 +1,70 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Address Book plugin for Craft CMS 3.x
+ *
+ * Address Book Settings.twig
+ *
+ * @author    @cole007
+ * @copyright Copyright (c) 2021 @cole007
+ * @link      ournameismud.co.uk
+ * @package   AddressBook
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("ournameismud\\addressbook\\assetbundles\\addressbook\\AddressBookAsset") %}
+
+	{% set settingFields = settings.fields %}
+
+	{% set fieldRows = [] %}
+    {# {% set siteErrors = categoryGroup.getErrors('siteSettings') %} #}
+
+    {% for field in fields %}
+        {# {% set siteSettings = categoryGroup.siteSettings[site.id] ?? null %} #}
+        {# {% if siteSettings %}
+            {% for attribute, errors in siteSettings.getErrors() %}
+                {% set siteErrors = siteErrors|merge(errors) %}
+            {% endfor %}
+        {% endif %} #}
+        {% set tmp = settingFields[field.name] %}
+        {% set fieldRows = fieldRows|merge({
+            (field.name): {
+                heading: field.label|t,
+                showField: {
+                	value: tmp.showField ?? 1
+            	},
+            	requireField: {
+            		value: tmp.requireField ?? null
+	            }
+            }
+        }) %}
+        {% endfor %}
+
+
+{{ forms.editableTableField({
+    label: 'Address Fields',
+    instructions: 'Which address fields do you want to show?',
+    id: 'fields',
+    name: 'fields',
+    staticRows: true,
+    cols: {
+    	heading: {
+    		type: 'heading',
+    		heading: 'Field'|t
+    	},
+	    showField: {
+	    	type: 'checkbox',
+    		heading: 'Show Field?'|t,
+    		class: 'thin'
+    	},
+	    requireField: {
+	    	type: 'checkbox',
+    		heading: 'Required Field?'|t,
+    		class: 'thin'
+    	}
+    },
+    rows: fieldRows})
+}}

@@ -1,0 +1,88 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Address Book plugin for Craft CMS 3.x
+ *
+ * Address Book index.twig
+ *
+ * @author    @cole007
+ * @copyright Copyright (c) 2021 @cole007
+ * @link      ournameismud.co.uk
+ * @package   AddressBook
+ * @since     1.0.0
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("ournameismud\\addressbook\\assetbundles\\addressescpsection\\AddressesCPSectionAsset") %}
+
+{% set title = "Add Address for " ~ customer.email %}
+
+{% set pluginCpUrl = url('address-book') %}
+
+{% set selectedSubnavItem = 'customers' %}
+
+{% set content %}
+
+    <form method="post" action="" accept-charset="UTF-8">
+        {{ csrfInput() }}
+
+        <input type="hidden" name="action" value="address-book/address/save-address">
+        <input type="hidden" name="customerId" value="{{ customer.id }}">
+        {{ redirectInput('commerce/customers/' ~ customer.id) }}
+        {#
+			To do pass
+			- errors if returned from controller
+			- address values id returned from controller
+        #}
+		{% for field in fields %}
+			{% set tmp = settings[field.name] %}
+			{% if tmp.showField == 1 %}
+			{% switch field.type %}
+
+			{% case 'dropdown' %}
+				{{ forms.selectField({
+					label: field.label|t,
+					name: 'address[' ~ field.name ~ ']',
+					required: tmp.requireField,
+					options: field.options,
+					value: address is defined ? address[field.name] : ''
+				}) }}
+
+			{% case 'textarea' %}
+
+				{{ forms.textareaField({
+					label: field.label|t,
+					name: 'address[' ~ field.name ~ ']',
+					required: tmp.requireField,
+					value: address is defined ? address[field.name] : ''
+				}) }}
+			{% case 'checkbox' %}
+
+				{{ forms.checkboxField({
+					label: field.label|t,
+					name: field.name,
+					required: tmp.requireField,
+					checked: address is defined ? address[field.name] : '',
+					value: '1'
+				}) }}
+			{% default %}
+
+				{{ forms.textField({
+					label: field.label|t,
+					name: 'address[' ~ field.name ~ ']',
+					required: tmp.requireField,
+					value: address is defined ? address[field.name] : ''
+				}) }}
+			{% endswitch %}
+			{% endif %}
+		{% endfor %}
+
+		<div class="buttons">
+            <input class="btn submit" type="submit" value="{{ 'Save'|t }}">
+        </div>
+	</form>
+
+{% endset %}

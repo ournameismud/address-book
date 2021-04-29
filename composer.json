@@ -1,0 +1,50 @@
+{
+    "name": "ournameismud/address-book",
+    "description": "Plugin to manage customer addresses independently of Craft Commerce ",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "address book"
+    ],
+    "support": {
+        "docs": "https://github.com/ournameismud/address-book/blob/master/README.md",
+        "issues": "https://github.com/ournameismud/address-book/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "@cole007",
+            "homepage": "ournameismud.co.uk"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "require-dev": {
+      "craftcms/cms": "^3.2.0",
+      "codeception/codeception": "^3.0",
+      "vlucas/phpdotenv": "^3.0",
+      "craftcms/commerce": "^3.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "ournameismud\\addressbook\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Address Book",
+        "handle": "address-book",
+        "developer": "@cole007",
+        "developerUrl": "ournameismud.co.uk",
+        "documentationUrl": "https://github.com/ournameismud/address-book/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/ournameismud/address-book/master/CHANGELOG.md",
+        "components": {
+            "addresses": "ournameismud\\addressbook\\services\\Addresses"
+        },
+        "class": "ournameismud\\addressbook\\AddressBook"
+    }
+}
