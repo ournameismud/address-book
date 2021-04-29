@@ -2,7 +2,7 @@
 
 Plugin to manage customer addresses independently of Craft Commerce
 
-![Screenshot](resources/img/plugin-logo.png)
+![Screenshot](resources/img/screenshot.png)
 
 ## Requirements
 
