@@ -38,9 +38,9 @@ On any customer details page click on the Add Address button shown in the sideba
 ## Address Book Roadmap
 
 * Make fields translatable
+* Make fields sortable
 * Requried field validation and messaging
 * Custom labels for address fields
-* Add address in modal
 
 Brought to you by [@cole007](ournameismud.co.uk)
 
